@@ -87,7 +87,7 @@ export default function Home() {
 
   <div className="image-card">
     <img
-      src="/pic1.jpeg"
+      src="/pic7.png"
       alt="healing"
     />
   </div>
