@@ -1,0 +1,207 @@
+/* Container & Card */
+.upload-form-container {
+  max-width: 600px;
+  margin: 50px auto;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.upload-card {
+  background: linear-gradient(180deg, #ffffff 0%, #fbfeff 100%);
+  padding: 36px 32px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.upload-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+}
+
+.upload-title {
+  text-align: center;
+  color: #0b1f2a;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+
+/* Back button */
+.back-btn {
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border: none;
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.06), inset 0 1px 0 rgba(255,255,255,0.02);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.back-btn svg { width: 16px; height: 16px; display: block; }
+
+.back-btn .back-text { color: inherit; font-size: 0.95rem; }
+
+.back-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 34px rgba(2,6,23,0.14), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+.back-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0,180,255,0.12);
+}
+
+/* Inputs & Textarea */
+.upload-card input[type="text"],
+.upload-card input[type="number"],
+.upload-card textarea {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.3s ease;
+  background: #fafafa;
+}
+
+.upload-card input:hover,
+.upload-card textarea:hover {
+  border-color: #0b1f2a;
+  box-shadow: 0 6px 15px rgba(22,163,74,0.15);
+  transform: translateY(-1px);
+}
+
+.upload-card input:focus,
+.upload-card textarea:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 12px rgba(22,163,74,0.25);
+  outline: none;
+  transform: translateY(0);
+}
+
+/* File Input */
+.file-input-container {
+  position: relative;
+  width: 100%;
+  min-height: 120px;
+  border: 2px dashed #0b1f2a;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f9fdf9;
+}
+
+.file-input-container:hover {
+  background: #f0fef9;
+  box-shadow: 0 8px 20px rgba(22, 163, 74, 0.2);
+  transform: translateY(-2px);
+}
+
+.file-input-container input[type="file"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-placeholder {
+  color: #0b1f2a;
+  font-weight: 500;
+  text-align: center;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.file-input-container:hover .file-placeholder {
+  color: #0b1f2a;
+}
+
+/* Image Preview Hover */
+.preview-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+}
+
+.preview-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(22,163,74,0.25);
+}
+
+/* Submit Button */
+.submit-btn {
+  background: linear-gradient(90deg, #00b4ff 0%, #0086d9 100%);
+  color: #fff;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  box-shadow: 0 8px 26px rgba(0,180,255,0.14);
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(0,180,255,0.2);
+}
+
+.submit-btn:disabled {
+  background: linear-gradient(90deg, #bcdff8 0%, #cfe8fb 100%);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+
+.back-btn,
+.back-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #0b1f2a; /* your primary color */
+  background: rgba(11,31,42,0.05);
+  border-radius: 10px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Hover effect */
+.back-btn:hover,
+.back-icon:hover {
+  background: rgba(11,31,42,0.12);
+  transform: translateX(-3px) scale(1.08);
+}
+
+@media (max-width: 600px) {
+  .back-btn { left: 12px; top: 12px; padding: 6px 10px; }
+  .upload-card { padding: 20px; }
+}

@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* ensure page content isn't hidden behind fixed footer - removed when footer not fixed */
+  /* padding-bottom: 240px; */
 }
 
 code {

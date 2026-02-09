@@ -1,0 +1,432 @@
+/* src/pages/Email.css */
+
+/* ---------- Base Layout ---------- */
+.email-page {
+  min-height: 100vh;
+  padding: 30px 20px;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  font-family: "Segoe UI", sans-serif;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---------- Top Nav Pills ---------- */
+.email-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 35px;
+  justify-content: center;
+}
+
+.email-nav button {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.email-nav button:hover {
+  background: #38bdf8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(56, 189, 248, 0.4);
+}
+
+/* ---------- Container ---------- */
+.email-container {
+  width: 100%;
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  
+  padding: 40px;
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+ 
+  position: relative;
+}
+
+/* ---------- Illustration ---------- */
+.email-illustration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 120px; /* ✅ adds 30px space below the illustration */
+}
+
+.email-illustration img {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 16px;
+  transition: transform 0.4s ease;
+}
+
+.email-illustration img:hover {
+  transform: scale(1.05) rotate(-1deg);
+}
+
+
+.email-ok-btn {
+  margin-top: 18px;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+
+  color: white;
+  background: linear-gradient(135deg, #6a5cff, #9f7bff);
+
+  transition: all 0.25s ease;
+}
+
+/* Hover */
+.email-ok-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(106,92,255,0.4);
+}
+
+/* Click */
+.email-ok-btn:active {
+  transform: scale(0.97);
+}
+
+/* ---------- Form ---------- */
+.email-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;   /* adjust value */
+  margin-bottom: 20px;   /* adjust value */
+}
+
+.email-form label {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.email-form input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+/* Interactive focus */
+.email-form input:focus {
+  border-color: #38bdf8;
+  background: rgba(255,255,255,0.12);
+  box-shadow: 0 0 10px rgba(56,189,248,0.5);
+}
+
+/* ---------- Social Section ---------- */
+.socials {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.socials p {
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.socials span {
+  display: block;
+  margin: 6px 0;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.socials span:hover {
+  color: #38bdf8;
+  transform: translateX(6px);
+}
+
+/* ---------- Steps Indicator ---------- */
+.email-steps {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  display: flex;
+  gap: 10px;
+  font-size: 0.8rem;
+}
+
+.email-steps span {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  transition: all 0.25s ease;
+}
+
+.email-steps span.active {
+  background: #38bdf8;
+  color: #000;
+  font-weight: bold;
+}
+
+/* ---------- Responsive ---------- */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .email-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .email-steps {
+    position: static;
+    justify-content: center;
+    margin-top: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+  .email-page {
+    padding: 20px 12px;
+  }
+
+  .email-container {
+    padding: 24px;
+    gap: 25px;
+  }
+
+  .email-nav button {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+}
+
+/* ---------------- Email Socials (Scoped) ---------------- */
+
+.email-socials {
+  margin-top: 1.5rem;
+}
+
+.email-info-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+  text-align: center;     /* ✅ centers the text */
+}
+
+.email-social-links {
+  display: flex;
+  gap: 12px;
+}
+
+/* Center the whole social block */
+.email-social-section {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+/* Center the label text */
+.email-info-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.05em;
+}
+
+/* Center the icons row */
+.email-social-links {
+  display: flex;
+  justify-content: center;   /* ✅ centers icons */
+  align-items: center;
+  gap: 12px;
+}
+
+/* Icon styling (if not yet applied) */
+.email-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: white;
+  background: rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.email-social-icon:hover {
+  transform: scale(1.12);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+}
+
+
+/* Brand hover colors */
+.email-social-icon.facebook:hover { background: #1877F2; }
+.email-social-icon.instagram:hover { background: #E4405F; }
+.email-social-icon.linkedin:hover { background: #0077B5; }
+.email-social-icon.whatsapp:hover { background: #25D366; }
+.email-social-icon.tiktok:hover { background: #000; }
+
+/* Sections for scrolling */
+.email-block {
+  min-height: 100vh;
+  padding: 60px 20px;
+}
+
+.placeholder {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2rem;
+  opacity:.5;
+}
+
+
+/* ================= VERTICAL STEP NAV ================= */
+
+/* ================= Vertical Minimal Nav ================= */
+
+/* ================= Vertical Minimal Nav ================= */
+
+.email-steps {
+  position: fixed;
+  right: 40px; /* Adjusted spacing from edge */
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: row; /* Labels first, then line */
+  align-items: center;
+  gap: 20px; /* Space between text and line */
+  z-index: 999;
+  font-family: 'Inter', sans-serif; /* Clean, modern font */
+}
+
+/* --- Labels --- */
+.step-labels {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Align text to the right, toward the line */
+  gap: 32px; /* Precision spacing to match line height */
+}
+
+.step-labels span {
+  cursor: pointer;
+  font-weight: 700; /* Bolder as per image */
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.4); /* Faded for inactive */
+  transition: all 0.3s ease;
+  text-align: right;
+}
+
+.step-labels span.active {
+  color: white;
+  transform: scale(1.05);
+}
+
+/* --- Vertical Line (On the Right) --- */
+.step-line {
+  width: 4px; /* Slightly thicker for better visibility */
+  height: 200px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated progress fill */
+.step-progress {
+  width: 100%;
+  background: white;
+  border-radius: 20px;
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+  top: 0;
+}
+/* Modern Glass Textarea */
+/* Modern Aesthetic Textarea */
+.email-message {
+  width: 100%;
+  min-height: 160px;
+  font-family: 'Poppins', sans-serif; /* ✅ Poppins font */
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #fff;
+
+  padding: 16px 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  /* Glassmorphism style */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* Subtle shadow */
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+
+  resize: vertical;
+  transition: all 0.3s ease;
+}
+
+/* Placeholder styling */
+.email-message::placeholder {
+  color: rgba(255,255,255,0.6);
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
+
+/* Hover effect */
+.email-message:hover {
+  border-color: rgba(106,92,255,0.6);
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 6px 20px rgba(106,92,255,0.3);
+}
+
+/* Focus effect */
+.email-message:focus {
+  outline: none;
+  border-color: #6a5cff;
+  background: rgba(255,255,255,0.12);
+  box-shadow:
+    0 0 0 2px rgba(106,92,255,0.25),
+    0 10px 24px rgba(106,92,255,0.35);
+  transform: translateY(-2px) scale(1.02);
+}
+
+
+/* Socials inside illustration, left aligned */
+/* Left-aligned socials below the illustration */
+.left-socials {
+  margin-top: 16px;           /* space below the image */
+  text-align: left;           /* left-align the label */
+}
+
+.left-socials .email-social-links {
+  justify-content: flex-start; /* align icons to the left */
+  display: flex;
+  gap: 12px;
+}
+
+
+.left-socials .email-social-links {
+  display: flex;
+  gap: 10px;
+}
+

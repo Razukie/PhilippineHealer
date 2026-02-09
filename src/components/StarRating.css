@@ -1,0 +1,30 @@
+.star-rating {
+  display: flex;
+  align-items: center;   /* vertically center stars and rating value */
+  justify-content: center; /* horizontally center the whole component */
+  gap: 6px;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.star {
+  transition: transform 0.2s, color 0.2s;
+  color: #ddd; /* empty star color */
+}
+
+.star.filled,
+.star.half {
+  color: #FFD700; /* gold/yellow for filled stars */
+}
+
+.star:hover {
+  transform: scale(1.2);
+  color: #FFC107; /* brighter yellow on hover */
+}
+
+.rating-value {
+  font-size: 1rem;
+  margin-left: 8px;
+  color: #333;
+  font-weight: 500;
+}

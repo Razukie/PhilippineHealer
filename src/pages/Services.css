@@ -1,0 +1,346 @@
+@import url("https://fonts.cdnfonts.com/css/konkhmer-sleokchher");
+
+
+/* PAGE BACKGROUND */
+.services-page {
+  min-height: 100vh;
+ 
+  color: #ffffff;
+}
+
+
+/* SECTION LAYOUT */
+.services-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 20px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 90px;
+  align-items: center;
+}
+
+/* IMAGE CARD */
+/* IMAGE CARD */
+.services-image-card {
+  width: 75%;
+  max-width: 520px;
+  margin: 0 auto;
+  border-radius: 28px;
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.65),
+    inset 0 0 0 1px rgba(255,255,255,0.08);
+
+  /* ADD FOR ANIMATION */
+  opacity: 0;                  /* start invisible */
+  transform: translateX(80px);  /* slide in from right */
+  transition: opacity 0.8s ease, transform 0.8s ease;
+
+  /* original hover transition */
+  transition-property: transform, box-shadow, opacity;
+  transition-duration: 0.6s, 0.6s, 0.8s;
+  transition-timing-function: ease;
+}
+
+.services-image-card img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* SCROLL INTO VIEW */
+.services-image-card.show {
+  opacity: 1;
+  transform: translateX(0); /* slide to original position */
+}
+
+.services-image-card:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 45px 80px rgba(0,0,0,0.8);
+}
+
+
+.services-image-card:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 45px 80px rgba(0,0,0,0.8);
+}
+
+.center-block {
+  text-align: center; /* center everything */
+}
+
+.underline {
+  width: 72%;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(190, 215, 225, 0.25),
+    rgba(220, 235, 240, 0.55),
+    rgba(190, 215, 225, 0.25),
+    transparent
+  );
+  border-radius: 999px;
+  margin: 14px auto 16px; /* spacing between underline and text */
+}
+
+
+
+
+
+
+
+
+
+
+
+.image-card2 {
+  width: 75%;
+  height: 650px;
+  max-width: 520px;
+  margin: 0 auto;
+  border-radius: 28px;
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.65),
+    inset 0 0 0 1px rgba(255,255,255,0.08);
+
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+}
+
+.image-card2 img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.image-card2:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 45px 80px rgba(0,0,0,0.8);
+}
+
+
+/*----------------------------------------*/
+
+.services-images {
+  width: 60%;
+  max-width: 350px;
+  margin: 0 auto;
+  border-radius: 28px;
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 20px 30px rgba(0,0,0,0.65),
+    inset 0 0 0 1px rgba(255,255,255,0.08);
+
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+}
+
+.services-images img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.services-images:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 45px 80px rgba(0,0,0,0.8);
+}
+
+
+/* Images  */
+
+
+/* TEXT BLOCK */
+.services-text {
+  position: relative;
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: all 0.8s ease;
+}
+
+.services-text.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* LARGE SECTION NUMBER */
+.services-number {
+  position: absolute;
+  top: -80px;
+  left: 0;
+  font-size: 150px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: rgba(63,208,201,0.18);
+  text-shadow: 0 0 30px rgba(63,208,201,0.25);
+}
+
+/* HEADING */
+.services-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.services-accent {
+  width: 56px;
+  height: 6px;
+  background: linear-gradient(90deg, #FDD835, #ffe97a);
+  border-radius: 4px;
+}
+
+.services-text h2 {
+  font-size: 36px;
+  font-weight: 500;
+  color: #FDD835;
+  letter-spacing: 1px;
+}
+
+/* TITLE */
+.services-text h4 {
+  font-size: 42px;
+  font-weight: normal;
+  color: #f1f1f1;
+  margin-top: 12px;
+}
+
+/* DIVIDER */
+.services-divider {
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    #dbdbdb,
+    rgba(219,219,219,0.3)
+  );
+  border-radius: 12px;
+  margin: 10px 0 22px;
+}
+
+/* Images  1 */
+.services-divider1 {
+  width: 70%;
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    #dbdbdb,
+    rgba(219,219,219,0.3)
+  );
+  border-radius: 12px;
+  margin: 10px 0 22px;
+}
+
+/* Images  1 */
+.services-divider2 {
+  width: 70%;
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    #dbdbdb,
+    rgba(219,219,219,0.3)
+  );
+  border-radius: 12px;
+  margin: 10px 0 22px;
+}
+
+/* DESCRIPTION */
+.services-text p {
+  max-width: 480px;
+  line-height: 1.85;
+  font-size: 16px;
+  color: rgba(255,255,255,0.78);
+}
+
+/* LINK */
+.services-link {
+  display: inline-block;
+  margin-top: 28px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #FDD835;
+  text-decoration: none;
+  transition: transform 0.35s ease, color 0.35s ease;
+}
+
+.services-link:hover {
+  transform: translateX(8px);
+  color: #ffffff;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .services-section {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    padding: 80px 20px;
+  }
+
+  .services-number {
+    font-size: 100px;
+    top: -60px;
+  }
+
+  .services-text h4 {
+    font-size: 34px;
+  }
+}
+
+/* Vertical services layout */
+.services-section.vertical {
+  display: flex;
+  flex-direction: row; /* image left, text right */
+  gap: 30px;
+  margin-bottom: 60px;
+  align-items: center;
+ 
+  border-radius: 20px;
+  padding: 20px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+
+
+.services-section.vertical .services-image-card img {
+  width: 250px;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.services-section.vertical .services-text {
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .services-section.vertical {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .services-section.vertical .services-image-card img {
+    width: 100%;
+  }
+}
+
+.realm-title {
+  font-family: 'Konkhmer Sleokchher', serif;
+  font-size: 33px;
+  font-weight: normal;
+  color: #e6e6e6;
+  text-align: center;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+

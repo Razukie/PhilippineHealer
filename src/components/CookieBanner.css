@@ -1,0 +1,96 @@
+.cookie-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  max-width: 940px;
+  background: #fff;
+  color: #111;
+  border-radius: 12px;
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.95rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+}
+
+.cookie-banner p {
+  margin: 0;
+}
+
+.cookie-banner a {
+  text-decoration: underline;
+  color: #111;
+  font-weight: 600;
+}
+
+.cookie-ok-btn {
+  background: #111;
+  color: #fff;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cookie-ok-btn:hover {
+  background: #333;
+}
+/* Minimal Floating Button — 2026 Style */
+.fab-modern {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(11, 31, 42, 0.75);
+  color: #7be0ff;
+
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+
+  cursor: pointer;
+
+  box-shadow:
+    0 6px 20px rgba(0,0,0,0.4),
+    0 0 10px rgba(0,200,255,0.12);
+
+  transition: all 0.25s cubic-bezier(.2,.8,.2,1);
+}
+
+/* Hover — subtle futuristic lift */
+.fab-modern:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow:
+    0 10px 28px rgba(0,0,0,0.5),
+    0 0 18px rgba(0,200,255,0.35);
+}
+
+/* Click feedback */
+.fab-modern:active {
+  transform: scale(0.92);
+}
+
+/* Open state glow */
+.fab-modern.open {
+  background: linear-gradient(135deg, #1fd1f9, #3a7bd5);
+  color: white;
+}
+
+/* Optional — smooth icon animation */
+.fab-modern svg {
+  transition: transform 0.25s ease;
+}
+
+.fab-modern:hover svg {
+  transform: scale(1.1);
+}
