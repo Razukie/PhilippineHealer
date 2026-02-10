@@ -14,7 +14,8 @@ function App() {
       <Routes>
 
         {/* redirect root to /home */}
-        <Route path="/" element={<Navigate to="/Home" replace />} />
+        
+        <Route path="/" element={<Home />} /> {/* Default route for LandingPage */}
         <Route path="/home" element={<Home />} />
         <Route path="/aboutme" element={<AboutMe />} />
         <Route path="/services" element={<Services />} />
