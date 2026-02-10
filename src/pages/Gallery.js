@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 
 import "./Gallery.css";
 import { Star } from "lucide-react";
-import UploadForm from "../components/UploadForm";
 import { rtdb } from "../firebase";
 import { ref as dbRef, onValue } from "firebase/database";
 import { Link } from "react-router-dom"; // make sure this is imported
@@ -10,8 +9,8 @@ import Footer from "../components/Footer";
 const galleryData = [
   
   
-  {id: 2,src: "/one.jpg",category: "Solo Healing",title: "Solo Travel",description: " \"It was incredible! I couldn't believe how deeply I connected with my own energy in such a sacred and calming space. The gentle guidance helped me release blockages, and I left feeling balanced and renewed. Truly a personal and transformative experience with the helpful healer, Johann Paquito.\" ",author: "— Philip",rating: 4.8},
-  {id: 3,src: "/caveman.jpg",category: "Solo Healing",title: "Personal Journey",description: "I didn't expect it to feel this peaceful. While I was there, Johann Paquito supported and guided me through the process, and it helped me release tension and clear my mind. Walking out, I felt centered and refreshed.",author: "— Visitor",rating: 4.8},
+  
+  
   {id: 4,src: "/preparing2.jpg",category: "Solo Healing",title: "Healing Ritual",description: "I snapped a photo while Johann Paquito was performing the healing ritual. Watching him work was incredible you could feel the calm and energy around us. The way he guided us to connect with nature really helped me release tension and find balance.",author: "— Visitor",rating: 4.7},
   {id: 5,src: "/solidarity.jpg",category: "Mission",title: "Solidarity Mission",description: "We held a Solidarity Mission with our German friends for the SINAB-ANG organization. It was inspiring to see everyone come together with such care and intention, supporting the community and spreading positive energy.",author: "— Johann Paquito",rating: 4.8},
   {id: 6,src: "/solidarity-kids.jpg",category: "Mission",title: "Solidarity Mission with Kids",description: "I had so much fun during the Solidarity Mission with our German friends for the SINAB-ANG organization. Johann Paquito showed us how to connect with nature and helped us feel calm and happy. It was amazing to be part of something so special and to learn from him!",author: "— Miguel, 10 years old",rating: 4.9},

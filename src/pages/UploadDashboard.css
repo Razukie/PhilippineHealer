@@ -1,125 +1,172 @@
-.dashboard-container {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  font-family: 'Inter', sans-serif;
+* {
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
 }
 
-.dashboard-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
+.dashboard-modern {
+  display: flex;
+  min-height: 100vh;
+  background: #f9fafb;
+  color: #0b1f2a;
 }
 
-.dashboard-subtitle {
-  color: #555;
-  margin-bottom: 2rem;
-}
-
-.no-items {
-  text-align: center;
-  color: #888;
-  font-style: italic;
-}
-
-.feedback-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
-}
-
-.feedback-card {
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #0b1f2a;
+  color: #fff;
+  padding: 30px 20px;
   display: flex;
   flex-direction: column;
-  background: white;
+}
+
+.brand {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-menu li {
+  padding: 12px 0;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.sidebar-menu li.active,
+.sidebar-menu li:hover {
+  background: #162d40;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  padding: 30px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  padding: 6px 12px;
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-.feedback-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-}
-
-.feedback-img img {
-  width: 100%;
-  height: 200px;
+.user-info img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   object-fit: cover;
 }
 
-.placeholder-img {
-  width: 100%;
-  height: 200px;
-  background: #eee;
+.user-initials {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #3fd0c9;
   display: flex;
-  align-items: center;
   justify-content: center;
-  color: #aaa;
-  font-size: 1rem;
+  align-items: center;
+  color: #fff;
+  font-weight: 700;
 }
 
-.feedback-content {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+/* Table */
+.table-container {
+  overflow-x: auto;
 }
 
-.feedback-title {
-  font-size: 1.25rem;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+thead {
+  background: #0b1f2a;
+  color: #fff;
+}
+
+thead th {
+  padding: 14px 16px;
+  text-align: left;
   font-weight: 600;
-  margin: 0;
 }
 
-.feedback-category {
-  font-size: 0.875rem;
-  color: #888;
+tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.feedback-description {
+tbody tr:hover {
+  background: #f1f5f9;
+}
+
+.status-approved {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.status-pending {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+/* Buttons */
+.btn-approve,
+.btn-delete {
+  padding: 8px 16px; /* slightly bigger */
+  border-radius: 12px; /* softer rounded corners */
+  font-weight: 600;
   font-size: 0.95rem;
-  color: #444;
-}
-
-.feedback-meta {
-  font-size: 0.8rem;
-  color: #666;
-}
-
-.feedback-actions {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.btn-approve {
-  flex: 1;
-  background: #16a34a;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 0.5rem;
   cursor: pointer;
-  transition: background 0.2s;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+/* Approve Button */
+.btn-approve {
+  background: linear-gradient(135deg, #3fd0c9, #6ee7b7);
+  color: #053827;
 }
 
 .btn-approve:hover {
-  background: #15803d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  background: linear-gradient(135deg, #6ee7b7, #3fd0c9);
 }
 
+/* Delete Button */
 .btn-delete {
-  flex: 1;
   background: #ef4444;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 0.5rem;
-  cursor: pointer;
-  transition: background 0.2s;
+  color: #fff;
 }
 
 .btn-delete:hover {
-  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  background: #dc2626; /* slightly darker red on hover */
+}
+
+/* Optional: smooth active click effect */
+.btn-approve:active,
+.btn-delete:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }

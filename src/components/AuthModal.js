@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -6,23 +6,60 @@ import {
   GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
+  updateProfile,
 } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import "./AuthModal.css";
 
 export default function AuthModal({ isOpen, onClose }) {
   const [isLogin, setIsLogin] = useState(true);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [editing, setEditing] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [gender, setGender] = useState("");
+  const [dob, setDob] = useState("");
 
   // Track authentication state
-  React.useEffect(() => {
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+
+      if (currentUser && currentUser.displayName) {
+        const parts = currentUser.displayName.split(" ");
+        setFirstName(parts[0] || "");
+        setLastName(parts.slice(1).join(" ") || "");
+      } else {
+        setFirstName("");
+        setLastName("");
+      }
+
+      // Load additional profile info from Firestore
+      if (currentUser) {
+        const ref = doc(db, "users", currentUser.uid);
+        getDoc(ref)
+          .then((snap) => {
+            if (snap.exists()) {
+              const data = snap.data();
+              setPhone(data.phone || "");
+              setGender(data.gender || "");
+              setDob(data.dob || "");
+            }
+          })
+          .catch(() => {});
+      } else {
+        setPhone("");
+        setGender("");
+        setDob("");
+      }
     });
+
     return () => unsubscribe();
   }, []);
 
@@ -37,30 +74,75 @@ export default function AuthModal({ isOpen, onClose }) {
         await signInWithEmailAndPassword(auth, email, password);
       } else {
         // Register
-        await createUserWithEmailAndPassword(auth, email, password);
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        const displayName = `${firstName.trim()} ${lastName.trim()}`.trim();
+
+        if (displayName) {
+          await updateProfile(cred.user, { displayName });
+        }
+
+        // Save extra profile fields to Firestore
+        try {
+         await setDoc(doc(db, "users", cred.user.uid), {
+  firstName: firstName,
+  lastName: lastName,
+  email: cred.user.email,
+  phone: phone || "",
+  gender: gender || "",
+  dob: dob || "",
+});
+
+
+        } catch (e) {
+          // ignore write errors
+        }
       }
+
       setEmail("");
       setPassword("");
+      setFirstName("");
+      setLastName("");
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
+
+
+
 
   const handleGoogleLogin = async () => {
-    setError("");
-    setLoading(true);
+  setError("");
+  setLoading(true);
 
-    try {
-      const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    const provider = new GoogleAuthProvider();
+
+    // Login with Google
+    const result = await signInWithPopup(auth, provider);
+  const gUser = result.user;
+
+  const names = (gUser.displayName || "").split(" ");
+
+  await setDoc(
+    doc(db, "users", gUser.uid),
+    {
+      firstName: names[0] || "",
+      lastName: names.slice(1).join(" ") || "",
+      email: gUser.email,
+    },
+    { merge: true }
+  );
+
+
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const handleLogout = async () => {
     try {
@@ -68,6 +150,38 @@ export default function AuthModal({ isOpen, onClose }) {
       onClose();
     } catch (err) {
       setError(err.message);
+    }
+  };
+
+  const handleUpdateProfile = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      if (!auth.currentUser) throw new Error("Not signed in");
+      const displayName = `${firstName.trim()} ${lastName.trim()}`.trim();
+
+      await updateProfile(auth.currentUser, { displayName });
+
+      // Save extra profile fields to Firestore
+      try {
+        await setDoc(
+          doc(db, "users", auth.currentUser.uid),
+          {
+            phone: phone || "",
+            gender: gender || "",
+            dob: dob || "",
+          },
+          { merge: true }
+        );
+      } catch (e) {}
+
+      setEditing(false);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -84,24 +198,65 @@ export default function AuthModal({ isOpen, onClose }) {
           // Logged in state
           <div className="auth-logged-in">
             <div className="user-profile">
-              {user.photoURL && (
-                <img
-                  src={user.photoURL}
-                  alt="User Avatar"
-                  className="user-avatar"
-                />
+              {user.photoURL ? (
+                <img src={user.photoURL} alt="User Avatar" className="user-avatar" />
+              ) : (
+                <div className="user-initials">
+                  {(user.displayName || user.email || "")
+                    .split(" ")
+                    .map((s) => s[0])
+                    .slice(0, 2)
+                    .join("")
+                    .toUpperCase()}
+                </div>
               )}
-              <h3>{user.displayName || user.email}</h3>
-              <p>{user.email}</p>
+
+              <h3 className="user-name">{user.displayName || user.email}</h3>
+              <p className="user-email">{user.email}</p>
             </div>
-            <button className="auth-logout-btn" onClick={handleLogout}>
-              Logout
-            </button>
+
+            {editing ? (
+              <form onSubmit={handleUpdateProfile} className="edit-profile-form">
+                <div className="form-row">
+                  <input
+                    placeholder="First name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                  <input
+                    placeholder="Last name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                </div>
+                <div className="edit-actions">
+                  <button type="submit" className="auth-submit-btn" disabled={loading}>
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    className="auth-google-btn"
+                    onClick={() => setEditing(false)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div className="auth-actions">
+                <button className="auth-primary-btn" onClick={() => setEditing(true)}>
+                  Edit Profile
+                </button>
+                <button className="auth-logout-btn" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           // Login/Register state
           <div className="auth-form">
-            <h2>{isLogin ? "Login" : "Register"}</h2>
+            <h2 className="auth-modal-title">{isLogin ? "Login" : "Register"}</h2>
 
             {/* Google Login Button */}
             <button
@@ -109,13 +264,7 @@ export default function AuthModal({ isOpen, onClose }) {
               onClick={handleGoogleLogin}
               disabled={loading}
             >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <circle cx="12" cy="12" r="10"></circle>
               </svg>
               {isLogin ? "Login with Google" : "Sign up with Google"}
@@ -125,6 +274,23 @@ export default function AuthModal({ isOpen, onClose }) {
 
             {/* Email/Password Form */}
             <form onSubmit={handleEmailAuth}>
+              {!isLogin && (
+                <div className="form-row">
+                  <input
+                    placeholder="First name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                  <input
+                    placeholder="Last name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </div>
+              )}
+
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input
@@ -152,11 +318,7 @@ export default function AuthModal({ isOpen, onClose }) {
               {error && <div className="auth-error">{error}</div>}
 
               <button type="submit" className="auth-submit-btn" disabled={loading}>
-                {loading
-                  ? "Loading..."
-                  : isLogin
-                  ? "Login"
-                  : "Create Account"}
+                {loading ? "Loading..." : isLogin ? "Login" : "Create Account"}
               </button>
             </form>
 

@@ -5,6 +5,8 @@ import Footer from "./components/Footer";
 import CookieBanner from "./components/CookieBanner"; // adjust the path if needed
 import ChatWidget from "./components/ChatWidget"; // Check this path!
 import AuthModal from "./components/AuthModal";
+import { auth } from "./components/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function Home() {
   useEffect(() => {
@@ -32,6 +34,12 @@ export default function Home() {
   
   const [menuOpen, setMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (u) => setCurrentUser(u));
+    return () => unsub();
+  }, []);
 
  
 
@@ -96,7 +104,18 @@ useEffect(() => {
 
                       {/* Profile icon on the right */}
                       <div className="desktop-profile" onClick={() => setAuthModalOpen(true)}>
-                        <img src="/user.png" alt="Profile" />
+                        {currentUser ? (
+                          <>
+                            {currentUser.photoURL ? (
+                              <img src={currentUser.photoURL} alt="Profile" />
+                            ) : (
+                              <div className="profile-initials">{(currentUser.displayName || currentUser.email || "").split(" ").map(s=>s[0]).slice(0,2).join("").toUpperCase()}</div>
+                            )}
+                            <div className="profile-name">{currentUser.displayName || currentUser.email}</div>
+                          </>
+                        ) : (
+                          <img src="/user.png" alt="Profile" />
+                        )}
                       </div>
                     </div>
 
@@ -118,11 +137,28 @@ useEffect(() => {
 <aside className={`mobile-drawer ${menuOpen ? "open" : ""}`}>
   <div className="drawer-header">
     <div className="avatar">
-      <img src="/profile2.png" alt="Profile" />
+      {currentUser ? (
+        currentUser.photoURL ? (
+          <img src={currentUser.photoURL} alt="Profile" />
+        ) : (
+          <div className="profile-initials drawer-initials">{(currentUser.displayName || currentUser.email || "").split(" ").map(s => s[0]).slice(0,2).join("").toUpperCase()}</div>
+        )
+      ) : (
+        <img src="/profile2.png" alt="Profile" />
+      )}
     </div>
     <div>
-      <h4>Johann John T. Paquito</h4>
-      <p>Philippine Healer</p>
+      {currentUser ? (
+        <>
+          <h4>{currentUser.displayName || currentUser.email}</h4>
+          <p className="drawer-email">{currentUser.email}</p>
+        </>
+      ) : (
+        <>
+          <h4>Johann John T. Paquito</h4>
+          <p>Philippine Healer</p>
+        </>
+      )}
     </div>
   </div>
 

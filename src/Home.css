@@ -855,4 +855,34 @@ body {
   }
 }
 
+/* Make desktop profile adapt on tablets and hide on small phones */
+@media (max-width: 1024px) {
+  .desktop-profile {
+    position: static; /* flow with layout instead of absolute */
+    right: auto;
+    margin-left: 0;
+    flex-direction: row; /* show avatar and initials side-by-side */
+    align-items: center;
+    gap: 8px;
+  }
+
+  .desktop-profile img {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* hide secondary name text on narrower screens to save space */
+  .desktop-profile .profile-name,
+  .desktop-profile .login-text {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* on mobile we use the hamburger / drawer so hide the desktop profile */
+  .desktop-profile {
+    display: none;
+  }
+}
+
 

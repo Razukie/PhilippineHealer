@@ -1,21 +1,43 @@
 import React, { useEffect, useState } from "react";
 import "./UploadDashboard.css";
-import { rtdb } from "../firebase";
+import { rtdb, auth} from "../firebase"; // make sure db is Firestore
 import { ref as dbRef, onValue, update, remove } from "firebase/database";
+import { onAuthStateChanged } from "firebase/auth";
 
-export default function UploadDashboard() {
+
+
+
+export default function UploadDashboardModern() {
   const [items, setItems] = useState([]);
+  const [user, setUser] = useState(null);
+  const [filter, setFilter] = useState("All");
+  
 
+  // Track logged-in user
   useEffect(() => {
-    const feedbacksRef = dbRef(rtdb, "Feedbacks");
-    const unsubscribe = onValue(feedbacksRef, (snapshot) => {
-      const data = snapshot.val() || {};
-      const list = Object.keys(data).map((key) => ({ key, ...data[key] }));
-      setItems(list.reverse());
-    }, (err) => console.error(err));
-
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
     return () => unsubscribe();
   }, []);
+
+  // Fetch feedbacks
+  useEffect(() => {
+    const feedbacksRef = dbRef(rtdb, "Feedbacks");
+    const unsubscribe = onValue(
+      feedbacksRef,
+      (snapshot) => {
+        const data = snapshot.val() || {};
+        const list = Object.keys(data).map((key) => ({ key, ...data[key] }));
+        setItems(list.reverse());
+      },
+      (err) => console.error(err)
+    );
+    return () => unsubscribe();
+  }, []);
+
+  
+
 
   const handleApprove = async (key) => {
     try {
@@ -24,6 +46,8 @@ export default function UploadDashboard() {
       console.error("Approve failed:", err);
     }
   };
+
+  
 
   const handleDelete = async (key) => {
     if (!window.confirm("Delete this feedback?")) return;
@@ -34,38 +58,123 @@ export default function UploadDashboard() {
     }
   };
 
+  // Filtered for main table
+  const filteredItems =
+    filter === "All"
+      ? items
+      : items.filter((it) =>
+          filter === "Approved" ? it.approved : !it.approved
+        );
+
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Upload Dashboard</h2>
-      <p>Approve or remove submitted feedback before it appears on the Gallery.</p>
-      <div>
-        {items.length === 0 && <p>No submissions yet.</p>}
-        {items.map((it) => (
-          <div key={it.key} style={{ border: "1px solid #ddd", padding: 12, marginBottom: 12, borderRadius: 8 }}>
-            <div style={{ display: "flex", gap: 12 }}>
-              {it.src && <img src={it.src} alt={it.title} style={{ width: 120, height: 80, objectFit: "cover", borderRadius: 6 }} />}
-              <div style={{ flex: 1 }}>
-                <strong>{it.title || "(no title)"}</strong>
-                <div style={{ fontSize: 13, color: "#666" }}>{it.category}</div>
-                <div style={{ marginTop: 8 }}>{it.description}</div>
-                <div style={{ marginTop: 8, fontSize: 13 }}>
-                  Author: {it.author || "—"} • Rating: {it.rating || "—"}
+    <div className="dashboard-modern">
+      <aside className="sidebar">
+        <div className="brand">Upload Dashboard</div>
+        <ul className="sidebar-menu">
+          <li
+            className={filter === "All" ? "active" : ""}
+            onClick={() => setFilter("All")}
+          >
+            All Feedbacks
+          </li>
+          <li
+            className={filter === "Approved" ? "active" : ""}
+            onClick={() => setFilter("Approved")}
+          >
+            Approved
+          </li>
+          <li
+            className={filter === "Pending" ? "active" : ""}
+            onClick={() => setFilter("Pending")}
+          >
+            Pending
+          </li>
+        </ul>
+      </aside>
+
+      <main className="main-content">
+        <header className="dashboard-header">
+          {user && (
+            <div className="user-info">
+              {user.photoURL ? (
+                <img src={user.photoURL} alt="Avatar" />
+              ) : (
+                <div className="user-initials">
+                  {(user.displayName || user.email)
+                    .split(" ")
+                    .map((s) => s[0])
+                    .slice(0, 2)
+                    .join("")
+                    .toUpperCase()}
                 </div>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                {!it.approved && (
-                  <button onClick={() => handleApprove(it.key)} style={{ background: "#16a34a", color: "white", border: "none", padding: "8px 12px", borderRadius: 6 }}>
-                    Approve
-                  </button>
-                )}
-                <button onClick={() => handleDelete(it.key)} style={{ background: "#ef4444", color: "white", border: "none", padding: "8px 12px", borderRadius: 6 }}>
-                  Delete
-                </button>
-              </div>
+              )}
+              <span>{user.displayName || user.email}</span>
             </div>
-          </div>
-        ))}
-      </div>
+          )}
+        </header>
+
+        {/* Main Feedbacks Table */}
+        <div className="table-container">
+          <h2>All Feedbacks</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Author</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredItems.length === 0 ? (
+                <tr>
+                  <td colSpan="6" style={{ textAlign: "center" }}>
+                    No feedbacks found.
+                  </td>
+                </tr>
+              ) : (
+                filteredItems.map((it) => (
+                  <tr key={it.key}>
+                    <td>{it.title}</td>
+                    <td>{it.category}</td>
+                    <td>{it.description}</td>
+                    <td>{it.author || "—"}</td>
+                    <td
+                      className={
+                        it.approved ? "status-approved" : "status-pending"
+                      }
+                    >
+                      {it.approved ? "Approved" : "Pending"}
+                    </td>
+                    <td>
+                      {!it.approved && (
+                        <button
+                          className="btn-approve"
+                          onClick={() => handleApprove(it.key)}
+                        >
+                          Approve
+                        </button>
+                      )}
+                      <button
+                        className="btn-delete"
+                        onClick={() => handleDelete(it.key)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        
+
+
+      </main>
     </div>
   );
 }
