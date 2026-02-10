@@ -18,11 +18,12 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/aboutme" element={<AboutMe />} />
         <Route path="/services" element={<Services />} />
-        <Route path="/location" element={<Location />} /> {/* points to pages/Location.js */}
-        <Route path="/gallery" element={<Gallery />} /> {/* points to pages/Location.js */}
-        <Route path="/contacts" element={<Email />} /> {/* ← Make sure this exists */}
-        <Route path="/upload" element={<Upload />} /> {/* ← New Upload route */}
+        <Route path="/location" element={<Location />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/contacts" element={<Email />} />
+        <Route path="/upload" element={<Upload />} />
         <Route path="/upload-dashboard" element={<UploadDashboard />} />
+
       </Routes>
     </Router>
   );
