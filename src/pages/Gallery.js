@@ -260,9 +260,7 @@ export default function GalleryPage() {
                 ✨ Share Your Experience
               </Link>
 
-              <Link to="/upload-dashboard" className="cta-btn primary">
-                ✨ Share Your Experience
-              </Link>
+              
               
             </div>
           </div>
