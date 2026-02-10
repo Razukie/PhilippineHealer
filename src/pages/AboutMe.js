@@ -125,16 +125,22 @@ export default function AboutMe() {
       
         <nav className="drawer-nav">
           <Link to="/home" onClick={() => setMenuOpen(false)}>
-            <span>🏠</span> Home
+                <span>🏠</span> Home
+              </Link>
+              <Link to="/aboutme" onClick={() => setMenuOpen(false)}>
+                <span>👤</span> About Me
+              </Link>
+              <Link to="/services" onClick={() => setMenuOpen(false)}>
+                <span>🧭</span> Services
+              </Link>
+              <Link to="/contact" onClick={() => setMenuOpen(false)}>
+                <span>💬</span> Contact
+              </Link>
+              <Link to="/location" onClick={() => setMenuOpen(false)}>
+            <span>📍</span> Location
           </Link>
-          <Link to="/aboutme" onClick={() => setMenuOpen(false)}>
-            <span>👤</span> About Me
-          </Link>
-          <Link to="/services" onClick={() => setMenuOpen(false)}>
-            <span>🧭</span> Services
-          </Link>
-          <Link to="/contact" onClick={() => setMenuOpen(false)}>
-            <span>💬</span> Contact
+              <Link to="/gallery" onClick={() => setMenuOpen(false)}>
+            <span>🖼️</span> Gallery
           </Link>
         </nav>
       </aside>

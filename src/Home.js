@@ -32,9 +32,7 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
   
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+ 
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => setCurrentUser(u));
@@ -175,9 +173,13 @@ useEffect(() => {
     <Link to="/contact" onClick={() => setMenuOpen(false)}>
       <span>💬</span> Contact
     </Link>
-    <Link to="/contact" onClick={() => setMenuOpen(false)}>
-      <span>💬</span> Contact
-    </Link>
+    <Link to="/location" onClick={() => setMenuOpen(false)}>
+  <span>📍</span> Location
+</Link>
+    <Link to="/gallery" onClick={() => setMenuOpen(false)}>
+  <span>🖼️</span> Gallery
+</Link>
+
   </nav>
 </aside>
 
