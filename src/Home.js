@@ -304,6 +304,8 @@ useEffect(() => {
 
       <div className="see-more-container">
                 <a href="/contacts" className="see-more">
+
+                
               See more →
             </a>
           </div>
