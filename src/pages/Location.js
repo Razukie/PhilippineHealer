@@ -29,14 +29,15 @@ const TopNav = ({ menuOpen, setMenuOpen, currentUser, setAuthModalOpen }) => (
 
       {/* Desktop Menu */}
       <div className="desktop-menu-container">
-        <ul className="desktop-menu">
-          <li><Link to="/home">Home</Link></li>
-          <li><Link to="/aboutme">About Me</Link></li>
-          <li><Link to="/services">Services</Link></li>
-          <li><Link to="/contacts">Contact</Link></li>
-          <li><Link to="/location">Location</Link></li>
-          <li><Link to="/gallery">Gallery</Link></li>
-        </ul>
+        {/* Centered desktop menu */}
+                          <ul className="desktop-menu">
+                            <li><Link to="/home" className="nav-button">Home</Link></li>
+                            <li><Link to="/aboutme" className="nav-button">About Me</Link></li>
+                            <li><Link to="/services" className="nav-button">Services</Link></li>
+                            <li><Link to="/contacts" className="nav-button">Contact</Link></li>
+                            <li><Link to="/location" className="nav-button">Location</Link></li>
+                            <li><Link to="/gallery" className="nav-button">Gallery</Link></li>
+                          </ul>
 
         {/* Profile Icon */}
         <div className="desktop-profile" onClick={() => setAuthModalOpen(true)}>
